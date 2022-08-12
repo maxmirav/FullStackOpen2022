@@ -13,15 +13,42 @@ const App = () => {
 
     const [selected, setSelected] = useState(0);
     const [points, setPoints] = useState(Array(anecdotes.length).fill(0));
+    const [mostVotes, setMostVotes] = useState();
+    const [mostAnecdotes, setMostAnecdotes] = useState("");
 
     const addPoints = () => {
       const newPoints = {...points}
       newPoints[selected] += 1;
       setPoints(newPoints);
+
+      //get the array item with the most points
+      let maxValue = Object.entries(newPoints).sort((x, y) => y[1] - x[1])[0];
+      console.log(maxValue);
+
+      //get the text
+      let newMostAnecdotes = anecdotes[maxValue[0]];
+      setMostAnecdotes(newMostAnecdotes);
+
+      //get the votes
+      let newMostVotes = maxValue[1];
+      setMostVotes(newMostVotes);
+
     }
+
+  const DisplayMostVotedAnecdote = () => {
+    if(mostAnecdotes !== ""){
+      return (
+        <>
+          <span>{mostAnecdotes}</span> <br />
+          <span>has {mostVotes} votes</span>
+        </>
+      );
+    }
+  }
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       {anecdotes[selected]}
       <br />
       <span>has {points[selected]} votes</span>
@@ -29,6 +56,8 @@ const App = () => {
       <button onClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))}>next anecdote</button>
       <button onClick={addPoints}>vote</button>
       
+      <h2>Anecdote with most votes</h2>
+      <DisplayMostVotedAnecdote />
     </div>
   );
 }
