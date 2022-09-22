@@ -29,13 +29,13 @@ const Course = ({ course }) => {
 }
 
 const Total = ({ courseParts }) => {
-    let total = 0
-    courseParts.forEach(coursePart => {
-      total += coursePart.exercises
-    })
+  let initialValue = 0
 
-    return <h2>total of {total} exercises</h2>
+  let total = courseParts.reduce(function(accumulator, curValue){
+    return accumulator + curValue.exercises
+  }, initialValue)
 
+  return <h3>total of {total} exercises</h3>
 }
 
 const App = () => {
@@ -67,3 +67,6 @@ const App = () => {
 }
 
 export default App
+
+
+
