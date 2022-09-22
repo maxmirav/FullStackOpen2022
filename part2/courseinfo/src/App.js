@@ -23,8 +23,19 @@ const Course = ({ course }) => {
     <>
       <Header courseName={course.name}/>
       <Content courseParts={course.parts}/>
+      <Total courseParts={course.parts}/>
     </>
   )
+}
+
+const Total = ({ courseParts }) => {
+    let total = 0
+    courseParts.forEach(coursePart => {
+      total += coursePart.exercises
+    })
+
+    return <h2>total of {total} exercises</h2>
+
 }
 
 const App = () => {
