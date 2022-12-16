@@ -1,5 +1,6 @@
-import Person from './components/Person'
-
+import Persons from './components/Persons'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 import { useState } from 'react'
 
 const App = () => {
@@ -50,33 +51,25 @@ const App = () => {
     } else {
       setPersons(persons.concat(nameObject))
       setNewName('')
+      setNewPhone('')
     }
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with: <input onChange={handleFilter} />
+        <Filter filterFunction={handleFilter}/>
 
-      </div>
       <h2>add a new</h2>
-      <form onSubmit={addName}>
-        <div>
-          name: <input onChange={handleNameInput} value={newName}/>
-          <br />
-          number: <input onChange={handlePhoneInput} value={newPhone}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+        <PersonForm submitNew={addName} 
+        handleNameFunction={handleNameInput} 
+        handlePhoneFunction={handlePhoneInput} 
+        newName={newName} 
+        newPhone={newPhone} />
 
-      <ul>
-      {filteredPersons.map(a => 
-          <Person key={a.name} individual={a} />
-        )}
-      </ul>
+      <h2>Numbers</h2>
+      <Persons filteredPersons={filteredPersons}/>
+
     </div>
   )
 }
