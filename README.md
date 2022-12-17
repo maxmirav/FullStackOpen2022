@@ -3,3 +3,4 @@ A repository for exercises from the University of Helsinki's [Full Stack Open 20
 
 ### Deep Dive Into Modern Web Development
 [Part 1: Introduction to React](https://github.com/maxmirav/FullStackOpen2022/tree/main/part1/)
+[Part 2: Communicating with server](https://github.com/maxmirav/FullStackOpen2022/tree/main/part2/)
