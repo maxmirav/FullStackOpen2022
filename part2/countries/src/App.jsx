@@ -1,32 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
+const Display = ({ filteredCountries }) => {
+  if(filteredCountries.length === 1) {
+    const resultCountry = filteredCountries[0]
+    return(
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>{resultCountry.name.common}</h1>
+        <p>capital: {resultCountry.capital}</p>
+        <p>area: {resultCountry.area}</p>
+        <ul>
+          {(Object.values(resultCountry.languages)).map(lang => <li key={lang}>{lang}</li>)}
+        </ul>
+        <img src={resultCountry.flags.png} alt="" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    )
+  }
+  else if(filteredCountries.length > 10) {
+    return <p>Too many matches! Be more specific</p>
+  }
+  else {
+    return filteredCountries.map(country => <p key={country.cca3}>{country.name.common}</p>)
+  }
+
+}
+
+const App = () => {
+  const [countries, setCountries] = useState([])
+  const [searchCountry, setNewSearchCountry] = useState('')
+
+  const filteredCountries = countries.filter(country => country.name.common.toLowerCase().includes(searchCountry.toLowerCase()))
+
+  const handleCountryChange = (event) => {
+    setNewSearchCountry(event.target.value)
+  }
+  
+  useEffect(() => {
+    axios
+      .get('https://restcountries.com/v3.1/all')
+      .then(response => {
+        setCountries(response.data)
+      })
+  }, [])
+
+  return(
+    <div>
+      <h2>{searchCountry}</h2>
+      <form>
+        find countries: <input onChange={handleCountryChange}/>
+      </form>
+      <Display filteredCountries={filteredCountries} />
     </div>
   )
 }
