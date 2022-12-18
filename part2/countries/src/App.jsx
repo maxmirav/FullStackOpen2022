@@ -1,29 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
-const Display = ({ filteredCountries }) => {
-  if(filteredCountries.length === 1) {
-    const resultCountry = filteredCountries[0]
-    return(
-      <div>
-        <h1>{resultCountry.name.common}</h1>
-        <p>capital: {resultCountry.capital}</p>
-        <p>area: {resultCountry.area}</p>
-        <ul>
-          {(Object.values(resultCountry.languages)).map(lang => <li key={lang}>{lang}</li>)}
-        </ul>
-        <img src={resultCountry.flags.png} alt="" />
-      </div>
-    )
-  }
-  else if(filteredCountries.length > 10) {
-    return <p>Too many matches! Be more specific</p>
-  }
-  else {
-    return filteredCountries.map(country => <p key={country.cca3}>{country.name.common}</p>)
-  }
-
-}
+import Display from './components/Display'
+import CountrySearch from './components/CountrySearch'
 
 const App = () => {
   const [countries, setCountries] = useState([])
@@ -45,11 +23,8 @@ const App = () => {
 
   return(
     <div>
-      <h2>{searchCountry}</h2>
-      <form>
-        find countries: <input onChange={handleCountryChange}/>
-      </form>
-      <Display filteredCountries={filteredCountries} />
+      <CountrySearch searchCountry={searchCountry} countryChangeFunction={handleCountryChange} />
+      <Display filteredCountries={filteredCountries} searchFunction={setNewSearchCountry}/>
     </div>
   )
 }
