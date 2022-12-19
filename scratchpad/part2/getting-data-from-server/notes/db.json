@@ -4,13 +4,13 @@
       "id": 1,
       "content": "HTML is easy",
       "date": "2022-1-17T17:30:31.098Z",
-      "important": true
+      "important": false
     },
     {
       "id": 2,
       "content": "Browser can execute only JavaScript",
       "date": "2022-1-17T18:39:34.091Z",
-      "important": true
+      "important": false
     },
     {
       "id": 3,
@@ -31,34 +31,46 @@
       "important": true
     },
     {
-      "content": "test",
-      "date": "2022-12-19T07:15:43.083Z",
-      "important": true,
+      "content": "is this a new note",
+      "date": "2022-12-18T19:11:23.199Z",
+      "important": false,
       "id": 6
     },
     {
-      "content": "test",
-      "date": "2022-12-19T07:15:43.719Z",
+      "content": "wat",
+      "date": "2022-12-18T19:12:28.894Z",
       "important": true,
       "id": 7
     },
     {
-      "content": "hello it's me",
-      "date": "2022-12-19T07:16:11.329Z",
-      "important": true,
+      "content": "is this a new note na naman",
+      "date": "2022-12-18T19:14:12.802Z",
+      "important": false,
       "id": 8
     },
     {
-      "content": "ewwewe",
-      "date": "2022-12-19T07:18:58.217Z",
-      "important": true,
+      "content": "test",
+      "date": "2022-12-18T19:16:01.512Z",
+      "important": false,
       "id": 9
     },
     {
-      "content": "wat",
-      "date": "2022-12-19T07:20:10.437Z",
-      "important": false,
+      "content": "tetset",
+      "date": "2022-12-18T20:25:39.635Z",
+      "important": true,
       "id": 10
+    },
+    {
+      "content": "LOLOLOLOLOL",
+      "date": "2022-12-19T06:51:54.301Z",
+      "important": false,
+      "id": 11
+    },
+    {
+      "content": "dasdasd",
+      "date": "2022-12-19T06:52:05.276Z",
+      "important": true,
+      "id": 12
     }
   ]
 }
