@@ -1,6 +1,11 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Note from './components/Note'
+import noteService from './services/notes'
+
+
+//TO FUture ALeX Let's create a src/services directory and add a file there called notes.js:
+
 
 const App = () => {
   const [notes, setNotes] = useState([])
@@ -8,8 +13,8 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/notes')
+    noteService
+      .getAll()
       .then(response => {
         setNotes(response.data)
       })
@@ -19,16 +24,16 @@ const App = () => {
     event.preventDefault()
     const noteObject = {
       content: newNote,
-      date: new Date(),
-      important: Math.random() < 0.5,
+      date: new Date().toISOString(),
+      important: Math.random() > 0.5
     }
 
-    axios
-    .post('http://localhost:3001/notes', noteObject)
-    .then(response => {
-      setNotes(notes.concat(response.data))
-      setNewNote('')
-    })
+    noteService
+      .create(noteObject)
+      .then(response => {
+        setNotes(notes.concat(response.data))
+        setNewNote('')
+      })
   }
 
   const handleNoteChange = (event) => {
@@ -39,14 +44,15 @@ const App = () => {
     ? notes
     : notes.filter(note => note.important)
 
-  const toggleImportanceOf = id => {
-      const url = `http://localhost:3001/notes/${id}`
+    const toggleImportanceOf = id => {
       const note = notes.find(n => n.id === id)
       const changedNote = { ...note, important: !note.important }
-    
-      axios.put(url, changedNote).then(response => {
-        setNotes(notes.map(n => n.id !== id ? n : response.data))
-      })
+  
+      noteService
+        .update(id, changedNote)
+        .then(response => {
+          setNotes(notes.map(note => note.id !== id ? note : response.data))
+        })
     }
 
   return (
