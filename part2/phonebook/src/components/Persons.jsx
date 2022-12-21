@@ -4,7 +4,7 @@ const Persons = ({filteredPersons}) => {
   return(
     <ul>
     {filteredPersons.map(a => 
-        <Person key={a.name} individual={a} />
+        <Person individual={a} key={a.name}/>
       )}
     </ul>
   )

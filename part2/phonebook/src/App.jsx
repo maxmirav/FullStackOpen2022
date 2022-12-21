@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     console.log('this is the effect')
-    console.log(persons.length)
+
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
@@ -48,7 +48,6 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
-
     const nameObject = {
       name: newName, 
       phoneNumber: newPhone
@@ -57,6 +56,12 @@ const App = () => {
     if(persons.some(a => a.name === newName)) {
       alert(`${newName} is already added to the phonebook!!`)
     } else {
+      axios
+        .post('http://localhost:3001/persons', nameObject)
+        .then(response => {
+          console.log(response)
+        })
+      
       setPersons(persons.concat(nameObject))
       setNewName('')
       setNewPhone('')
